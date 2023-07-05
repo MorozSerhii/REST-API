@@ -5,7 +5,6 @@ dotenv.config({ path: "./.env" });
 const { RequestError } = require("../utils");
 
 const { SECRET_KEY } = process.env;
-console.log(SECRET_KEY);
 
 const authorization = async (req, res, next) => {
   try {
