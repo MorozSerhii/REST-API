@@ -25,7 +25,7 @@ const authorization = async (req, res, next) => {
   } catch (error) {
     if (!error.status) {
       error.status = 401;
-      error.message = "Unuathorized";
+      error.message = "Not authorized";
     }
     next(error);
   }

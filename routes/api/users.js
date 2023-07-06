@@ -2,7 +2,11 @@ const express = require("express");
 
 const { ControllerWrapper } = require("../../utils");
 
-const { validateBody, authorization } = require("../../middlewares/index");
+const {
+  validateBody,
+  authorization,
+  upload,
+} = require("../../middlewares/index");
 
 const ctrl = require("../../controllers/auth");
 
@@ -30,6 +34,11 @@ router.patch(
   authorization,
   ControllerWrapper(ctrl.updateSubscription)
 );
-
+router.patch(
+  "/avatars",
+  authorization,
+  upload.single("avatar"),
+  ControllerWrapper(ctrl.updateAvatar)
+);
 router.post("/logout", authorization, ControllerWrapper(ctrl.logout));
 module.exports = router;
