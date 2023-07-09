@@ -19,8 +19,12 @@ const updateSubscriptionJoiSchema = Joi.object({
     .valid(...subscriptions)
     .required(),
 });
+const verifyEmailSchema = Joi.object({
+  email: Joi.string().pattern(emailRegexp).required(),
+});
 
 const schemas = {
+  verifyEmailSchema,
   registerSchema,
   loginSchema,
   updateSubscriptionJoiSchema,

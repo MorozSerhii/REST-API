@@ -2,11 +2,7 @@ const express = require("express");
 
 const { ControllerWrapper } = require("../../utils");
 
-const {
-  validateBody,
-  authorization,
-  upload,
-} = require("../../middlewares/index");
+const { validateBody, authorization, upload } = require("../../middlewares");
 
 const ctrl = require("../../controllers/auth");
 
@@ -40,5 +36,14 @@ router.patch(
   upload.single("avatar"),
   ControllerWrapper(ctrl.updateAvatar)
 );
+
 router.post("/logout", authorization, ControllerWrapper(ctrl.logout));
+
+router.get("/verify/:verificationToken", ControllerWrapper(ctrl.verification));
+
+router.post(
+  "/verify",
+  validateBody(schemas.verifyEmailSchema),
+  ControllerWrapper(ctrl.resendEmail)
+);
 module.exports = router;
