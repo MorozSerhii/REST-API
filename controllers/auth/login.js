@@ -1,7 +1,6 @@
 const bcrypt = require("bcryptjs");
 const jvt = require("jsonwebtoken");
-const dotenv = require("dotenv");
-dotenv.config({ path: "./.env" });
+
 const User = require("../../models/users");
 
 const { RequestError } = require("../../utils");
@@ -11,6 +10,9 @@ const { SECRET_KEY } = process.env;
 const login = async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
+  if (!user.verify) {
+    throw RequestError(401, " not verificated");
+  }
   if (!user) {
     throw RequestError(401, "Email or password wrong");
   }
